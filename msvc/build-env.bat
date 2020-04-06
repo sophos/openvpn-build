@@ -1,19 +1,21 @@
 @echo off
 
-if "%OPENSSL_VERSION%"=="" set OPENSSL_VERSION=1.1.1d
+if "%OPENSSL_SOURCERT%"=="" set OPENSSL_SOURCERT=old/1.1.1
+if "%OPENSSL_VERSION%"=="" set OPENSSL_VERSION=1.1.1e
 if "%LZO_VERSION%"=="" set LZO_VERSION=2.10
-if "%PKCS11_VERSION%"=="" set PKCS11_VERSION=1.22
+if "%PKCS11_VERSION%"=="" set PKCS11_VERSION=crtmtlinkage
 if "%TAP_VERSION%"=="" set TAP_VERSION=master
 if "%GITHUB_USER%"=="" set GITHUB_USER=OpenVPN
-if "%OPENVPN_VERSION%"=="" set OPENVPN_VERSION=master
+if "%OPENVPN_VERSION%"=="" set OPENVPN_VERSION=sophostapadapter
 if "%OPENVPN_BRANCH%"=="" set OPENVPN_BRANCH=build
 if "%OPENVPN_SOURCE%"=="" set OPENVPN_SOURCE=tarball
 
-set OPENSSL_URL=http://www.openssl.org/source/openssl-%OPENSSL_VERSION%.tar.gz
+set OPENSSL_URL=http://www.openssl.org/source/%OPENSSL_SOURCERT%/openssl-%OPENSSL_VERSION%.tar.gz
 set LZO_URL=http://www.oberhumer.com/opensource/lzo/download/lzo-%LZO_VERSION%.tar.gz
-set PKCS11_URL=https://github.com/OpenSC/pkcs11-helper/releases/download/pkcs11-helper-%PKCS11_VERSION%/pkcs11-helper-%PKCS11_VERSION%.tar.bz2
+set PKCS11_URL=https://github.com/sophos/pkcs11-helper/archive/%PKCS11_VERSION%.tar.gz
+rem set PKCS11_URL=https://github.com/OpenSC/pkcs11-helper/releases/download/pkcs11-helper-%PKCS11_VERSION%/pkcs11-helper-%PKCS11_VERSION%.tar.bz2
 set TAP_URL=https://github.com/OpenVPN/tap-windows6/archive/%TAP_VERSION%.zip
-set OPENVPN_URL=https://github.com/%GITHUB_USER%/openvpn/archive/%OPENVPN_VERSION%.tar.gz
+set OPENVPN_URL=https://github.com/sophos/openvpn/archive/%OPENVPN_VERSION%.tar.gz
 set OPENVPN_GIT=https://github.com/OpenVPN/openvpn.git
 set P7ZIP_URL=https://netcologne.dl.sourceforge.net/project/sevenzip/7-Zip/9.20/7za920.zip
 

@@ -37,10 +37,10 @@ if exist build-env-local.bat call build-env-local.bat
 
 if exist "%VCHOME%\vcvarsall.bat" (
 	call "%VCHOME%\vcvarsall.bat"
-) else if exist "%VCHOME%\bin\vcvars64.bat" (
-	call "%VCHOME%\bin\vcvars64.bat"
-) else if exist "%VCHOME%\Auxiliary\Build\vcvars64.bat" (
-	call "%VCHOME%\Auxiliary\Build\vcvars64.bat"
+) else if exist "%VCHOME%\bin\vcvars32.bat" (
+	call "%VCHOME%\bin\vcvars32.bat"
+) else if exist "%VCHOME%\Auxiliary\Build\vcvars32.bat" (
+	call "%VCHOME%\Auxiliary\Build\vcvars32.bat"
 ) else (
 	echo Cannot detect visual studio environment
 	goto error
@@ -109,11 +109,10 @@ for %%f in (download.tmp\*) do "%P7Z%" x -obuild.tmp "%%f" -aou
 if errorlevel 1 goto error
 for %%f in (sources\*.zip) do "%P7Z%" x -obuild.tmp "%%f" -aou
 if errorlevel 1 goto error
-
 echo Build OpenSSL
 
 cd build.tmp\openssl*
-perl Configure VC-WIN64A --prefix="%TARGET%" --openssldir="%TARGET%"\ssl
+perl Configure VC-WIN32 --prefix="%TARGET%" --openssldir="%TARGET%"\ssl
 if errorlevel 1 goto error
 nmake install
 if errorlevel 1 goto error
@@ -129,7 +128,7 @@ cd %ROOT%
 echo Build LZO
 
 cd build.tmp\lzo*
-call B\win64\vc_dll.bat
+call B\win32\vc_dll.bat
 rem if errorlevel 1 goto error - returns 1!!
 xcopy include\lzo "%TARGET%\include\lzo" /e /i /y
 if errorlevel 1 goto error
@@ -173,9 +172,9 @@ mkdir ..\..\%OPENVPN_BUILD_OPENVPN% > nul 2>&1
 cd build.tmp\openvpn*
 xcopy * ..\..\..\..\%OPENVPN_BUILD_OPENVPN% /E
 cd ..\..\..\..\%OPENVPN_BUILD_OPENVPN%
-msbuild openvpn.sln /p:Platform=x64 /p:Configuration=%RELEASE%
+msbuild openvpn.sln /p:Platform=Win32 /p:Configuration=%RELEASE%
 if errorlevel 1 goto error
-copy x64-Output\%RELEASE%\*.exe "%TARGET%\bin"
+copy Win32-Output\%RELEASE%\*.exe "%TARGET%\bin"
 if errorlevel 1 goto error
 copy include\openvpn-*.h "%TARGET%\include"
 if errorlevel 1 goto error
